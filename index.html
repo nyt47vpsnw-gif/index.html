@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️ 我們的紀念日 ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Noto Sans TC',sans-serif;
+}
+
+body{
+    overflow:hidden;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fad0c4,#ffd1ff);
+    background-size:400% 400%;
+    animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.container{
+    z-index:10;
+    width:90%;
+    max-width:700px;
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(12px);
+    border-radius:25px;
+    padding:40px;
+    text-align:center;
+    color:white;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+h1{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+h2{
+    font-size:26px;
+    margin:20px 0;
+}
+
+#days{
+    font-size:55px;
+    font-weight:bold;
+    color:#fff;
+    text-shadow:0 0 15px #ff4d88;
+}
+
+#typing{
+    font-size:22px;
+    line-height:1.8;
+    min-height:80px;
+    margin-top:25px;
+}
+
+button{
+    margin-top:30px;
+    border:none;
+    outline:none;
+    padding:15px 30px;
+    border-radius:50px;
+    background:#ff4d88;
+    color:white;
+    cursor:pointer;
+    font-size:18px;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+.heart{
+    position:absolute;
+    color:#ff4d88;
+    animation:fall linear forwards;
+    user-select:none;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-10vh) rotate(0deg);
+        opacity:1;
+    }
+    to{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+footer{
+    margin-top:30px;
+    opacity:.8;
+    font-size:14px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>❤️ 我們的故事 ❤️</h1>
+
+<h2>從 <b>2026 / 05 / 31</b> 開始</h2>
+
+<div id="days">0</div>
+
+<h2>天</h2>
+
+<div id="typing"></div>
+
+<button onclick="toggleMusic()">🎵 播放 / 暫停</button>
+
+<footer>
+Forever With You ❤️
+</footer>
+
+</div>
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+//====================
+// 紀念日
+//====================
+
+const startDate = new Date("2026-05-31");
+
+function updateDays(){
+
+const now = new Date();
+
+const diff = now - startDate;
+
+const days = Math.floor(diff/(1000*60*60*24));
+
+document.getElementById("days").innerHTML = days<0?0:days;
+
+}
+
+updateDays();
+
+setInterval(updateDays,1000);
+
+//====================
+// 打字效果
+//====================
+
+const text =
+"謝謝你出現在我的生命裡。\n希望未來的每一天，我們都能一起笑、一起努力、一起變得更好。\n❤️ 我愛你 ❤️";
+
+let i=0;
+
+function type(){
+
+if(i<text.length){
+
+document.getElementById("typing").innerHTML +=
+text.charAt(i)=="\n"?"<br>":text.charAt(i);
+
+i++;
+
+setTimeout(type,70);
+
+}
+
+}
+
+type();
+
+//====================
+// 音樂
+//====================
+
+const music=document.getElementById("music");
+
+function toggleMusic(){
+
+if(music.paused){
+
+music.play();
+
+}else{
+
+music.pause();
+
+}
+
+}
+
+//====================
+// 愛心動畫
+//====================
+
+function createHeart(){
+
+const heart=document.createElement("div");
+
+heart.className="heart";
+
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.fontSize=(15+Math.random()*30)+"px";
+
+heart.style.animationDuration=(4+Math.random()*5)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+
+heart.remove();
+
+},9000);
+
+}
+
+setInterval(createHeart,250);
+
+</script>
+
+</body>
+</html>
